@@ -3,4 +3,4 @@ from dbmanager import DB_MANAGER
 
 
 db_manager = DB_MANAGER()
-print(db_manager.get_vacancies_with_keyword(['python']))
+print(db_manager.elist[0][0])

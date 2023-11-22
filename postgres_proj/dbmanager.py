@@ -74,8 +74,11 @@ class DB_MANAGER(DB):
                     tmp = tmp + (None, )
                 tmp = tmp + (float(vacancy['salary']),)
                 tmp = tmp + (vacancy['currency'],)
-                tmp = tmp + (int(vacancy['employer']['id']),)
-                tmp = tmp + (vacancy['employer']['name'],)
+                try:
+                    tmp = tmp + (int(vacancy['employer']['id']),)
+                    tmp = tmp + (vacancy['employer']['name'],)
+                except KeyError:
+                    continue
                 tmp = tmp + (f'https://hh.ru/vacancy/{vacancy["id"]}', )
                 self.cur.execute('insert into vacancies values(%s, %s, %s, %s, %s, %s, %s, %s)',
                                 tmp)

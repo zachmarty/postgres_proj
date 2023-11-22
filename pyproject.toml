@@ -16,6 +16,7 @@ get-all-vacancies = "scripts.scripts:get_all_vacancies"
 get-avg-salary = "scripts.scripts:get_avg_salary"
 get-vacancies-with-higher-salary = "scripts.scripts:get_vacancies_with_higher_salary"
 get-vacancies-with-keyword = "scripts.scripts:get_vacancies_with_keyword"
+load-vacancies = "scripts.scripts:load_vacancies"
 
 
 [build-system]
