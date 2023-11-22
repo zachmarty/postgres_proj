@@ -1,7 +1,9 @@
 from hh_agent import HH_Api
 from dbmanager import DB_MANAGER
 
-
+"""
+Демонстрация всего функционала
+"""
 db_manager = DB_MANAGER()
 count = int(input())
 kwords = input()

@@ -31,7 +31,7 @@ class HH_Api(Api):
 
     def get_vacancies(self, words = 'Python'):
         """
-        Метод для получения вакансий и преобразования их из json в словари
+        Метод для получения вакансий
         """
         self.params['text'] = words
         r = requests.get(self.url, params=self.params)
