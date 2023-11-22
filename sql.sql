@@ -1,3 +1,5 @@
+create database hhrujobs
+
 create table vacancies(
     id integer primary key,
     name varchar(50),

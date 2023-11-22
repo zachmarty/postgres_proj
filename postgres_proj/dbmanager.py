@@ -14,7 +14,7 @@ class DB_MANAGER(DB):
             host = 'localhost',
             user = 'postgres',
             password = os.getenv('PASSWD'),
-            database = os.getenv('DATABASE')
+            database = 'hhrujobs'
         )
 
         self.cur = self.conn.cursor()
