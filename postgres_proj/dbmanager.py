@@ -9,12 +9,12 @@ class DB(ABC):
         pass
 
 class DB_MANAGER(DB):
-    def __init__(self, database, passwd):
+    def __init__(self):
         self.conn = psycopg2.connect(
             host = 'localhost',
             user = 'postgres',
-            password = passwd,
-            database = database
+            password = os.getenv('PASSWD'),
+            database = os.getenv('DATABASE')
         )
 
         self.cur = self.conn.cursor()
@@ -81,7 +81,35 @@ class DB_MANAGER(DB):
                                 tmp)
                 self.conn.commit()
                 self.update_employer(vacancy)
-        
+    
+    def get_companies_and_vacancies_count(self):
+        self.cur.execute('select count(*) from employers')
+        ecount = self.cur.fetchone()
+        self.cur.execute('select count(*) from vacancies')
+        vcount = self.cur.fetchone()
+        return [int(ecount[0]), int(vcount[0])]
+    
+    def get_all_vacancies(self):
+        self.cur.execute('select employer_name, name, salary, link from vacancies')
+        output = self.cur.fetchall()
+        return output
+    
+    def get_avg_salary(self):
+        self.cur.execute('select avg(salary) from vacancies')
+        output = self.cur.fetchone()
+        return int(output[0])
+    
+    def get_vacancies_with_higher_salary(self):
+        self.cur.execute('select employer_name, name, salary, link from vacancies where salary > (select avg(salary) from vacancies)')
+        output = self.cur.fetchall()
+        return output
+    
+    def get_vacancies_with_keyword(self, kwords):
+        output = []
+        for kword in kwords:
+            self.cur.execute(f"select employer_name, name, salary, link from vacancies where name like '%{str(kword).lower()}%' or requirements like '%{str(kword).lower()}%'")
+            output.append(self.cur.fetchall())
+        return output
     
     def __del__(self):
         self.cur.close()
